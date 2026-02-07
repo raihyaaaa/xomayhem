@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XO Mayhem</title>
+    <link rel="icon" type="image/png" href="mayhem.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Player Selection Modal -->
+    <div class="modal" id="playerModal">
+        <div class="modal-content">
+            <h2>Choose Your Symbol</h2>
+            <p>Select whether you want to play as X or O</p>
+            
+            <div class="player-selection">
+                <div class="player-option selected" onclick="selectPlayer('X')">
+                    <div class="player-option-symbol">❌</div>
+                    <div class="player-option-text">Play as X</div>
+                </div>
+                <div class="player-option" onclick="selectPlayer('O')">
+                    <div class="player-option-symbol">⭕</div>
+                    <div class="player-option-text">Play as O</div>
+                </div>
+            </div>
+
+            <div class="grid-select">
+                <label>Select Grid Size</label>
+                <div class="grid-buttons">
+                    <button class="grid-btn selected" onclick="selectGrid(3)">3×3</button>
+                    <button class="grid-btn" onclick="selectGrid(5)">5×5</button>
+                    <button class="grid-btn" onclick="selectGrid(7)">7×7</button>
+                </div>
+            </div>
+
+            <div class="difficulty-select">
+                <label>Select Difficulty</label>
+                <div class="difficulty-buttons">
+                    <button class="difficulty-btn" onclick="selectDifficulty('easy')">Easy</button>
+                    <button class="difficulty-btn selected" onclick="selectDifficulty('medium')">Medium</button>
+                    <button class="difficulty-btn" onclick="selectDifficulty('hard')">Hard</button>
+                </div>
+            </div>
+
+            <button class="btn" onclick="startGame()">Start Game</button>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="game-container">
+            <h1>XO Mayhem</h1>
+            <p class="subtitle">Challenge the AI and test your strategy</p>
+            
+            <div class="scoreboard">
+                <div class="score-card player">
+                    <div class="score-label" id="playerLabel">You (X)</div>
+                    <div class="score-value" id="playerScore">0</div>
+                </div>
+                <div class="score-card">
+                    <div class="score-label">Ties</div>
+                    <div class="score-value" id="tieScore">0</div>
+                </div>
+                <div class="score-card computer">
+                    <div class="score-label" id="computerLabel">AI (O)</div>
+                    <div class="score-value" id="computerScore">0</div>
+                </div>
+            </div>
+
+            <div class="status" id="status">Choose your symbol to begin!</div>
+
+            <div class="board grid-3" id="board"></div>
+
+            <div class="controls">
+                <button class="btn" onclick="newGame()">New Game</button>
+                <button class="btn secondary" onclick="resetScores()">Reset Scores</button>
+                <button class="btn change-symbol" onclick="changeSymbol()">Change Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 XO Mayhem. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#" onclick="openInfoPage('about'); return false;">About</a>
+                <a href="#" onclick="openInfoPage('howto'); return false;">How to Play</a>
+                <a href="#" onclick="openInfoPage('contact'); return false;">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- About Page -->
+    <div class="info-page" id="aboutPage">
+        <div class="info-content">
+            <button class="close-info" onclick="closeInfoPage('about')">&times;</button>
+            <h2>About XO Mayhem</h2>
+            <p>Welcome to our modern take on the classic game of Tic Tac Toe! This game brings the timeless strategy game into the digital age with beautiful design and intelligent AI opponents.</p>
+            
+            <h3>Game Features</h3>
+            <ul>
+                <li><strong>Choose Your Symbol:</strong> Play as either X or O</li>
+                <li><strong>Multiple Grid Sizes:</strong> 3×3, 5×5, or 7×7 boards</li>
+                <li><strong>Three Difficulty Levels:</strong> Easy, Medium, or Hard</li>
+                <li><strong>Smart AI:</strong> Strategic algorithms for real challenges</li>
+                <li><strong>Score Tracking:</strong> Track wins, losses, and ties</li>
+                <li><strong>Auto-Restart:</strong> New game starts automatically after each round</li>
+            </ul>
+
+            <h3>About the Game</h3>
+            <p>Tic Tac Toe is one of the oldest strategy games in history. Our version combines classic gameplay with modern technology.</p>
+
+            <h3>Version Information</h3>
+            <p><strong>Version:</strong> 2.2<br>
+            <strong>Last Updated:</strong> 2026<br>
+            <strong>Platform:</strong> Web Browser</p>
+        </div>
+    </div>
+
+    <!-- How to Play Page -->
+    <div class="info-page" id="howtoPage">
+        <div class="info-content">
+            <button class="close-info" onclick="closeInfoPage('howto')">&times;</button>
+            <h2>How to Play</h2>
+            
+            <h3>Getting Started</h3>
+            <ul>
+                <li><strong>Choose Symbol:</strong> Select X or O</li>
+                <li><strong>Select Grid Size:</strong> Pick 3×3, 5×5, or 7×7</li>
+                <li><strong>Select Difficulty:</strong> Easy, Medium, or Hard</li>
+                <li><strong>Click Start:</strong> Begin your game</li>
+            </ul>
+
+            <h3>Basic Rules</h3>
+            <ul>
+                <li>Players take turns placing symbols on the grid</li>
+                <li>X always goes first</li>
+                <li>Click any empty square to place your symbol</li>
+                <li>Get the required symbols in a row to win:</li>
+                <ul>
+                    <li>3×3 grid: 3 in a row</li>
+                    <li>5×5 grid: 4 in a row</li>
+                    <li>7×7 grid: 5 in a row</li>
+                </ul>
+                <li>Rows can be horizontal, vertical, or diagonal</li>
+                <li>New game starts automatically after 2 seconds</li>
+            </ul>
+
+            <h3>Winning Strategies</h3>
+            <ul>
+                <li><strong>Control Center:</strong> Center position is strategic</li>
+                <li><strong>Block Opponent:</strong> Watch for opponent's patterns</li>
+                <li><strong>Create Threats:</strong> Set up multiple winning moves</li>
+                <li><strong>Think Ahead:</strong> Plan 2-3 moves in advance</li>
+            </ul>
+
+            <h3>Difficulty Levels</h3>
+            <p><strong>Easy:</strong> Random moves - great for beginners</p>
+            <p><strong>Medium:</strong> Mix of strategy and random - balanced challenge</p>
+            <p><strong>Hard:</strong> Optimal strategy - very difficult!</p>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div class="info-page" id="contactPage">
+        <div class="info-content">
+            <button class="close-info" onclick="closeInfoPage('contact')">&times;</button>
+            <h2>Contact Us</h2>
+            <p>We'd love to hear from you! Share your feedback or suggestions.</p>
+
+            <form class="contact-form" onsubmit="handleContactSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Your name">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required placeholder="Tell us what's on your mind..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+
+            <h3 style="margin-top: 25px; text-align: center;">Connect With Us</h3>
+            <div class="social-links">
+                <a href="https://www.instagram.com/raihyaaa_/" target="_blank" class="social-link Instagram" title="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://discord.gg/VxzYKa2PAc" target="_blank" class="social-link discord" title="Discord">
+                    <i class="fab fa-discord"></i>
+                </a>
+                <a href="https://github.com/raihyaaaa" target="_blank" class="social-link github" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://raihyaaa.netlify.app/" target="_blank" class="social-link portfolio" title="Portfolio">
+                    <i class="fas fa-briefcase"></i>
+                </a>
+            </div>
+
+            <p style="margin-top: 20px; font-size: 0.85em; color: #999; text-align: center;">We respond within 24-48 hours. Thank you!</p>
+        </div>
+    </div>
+<script src="script.js"></script>
+</body>
+</html>
