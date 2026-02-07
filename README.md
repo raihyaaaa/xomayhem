@@ -1,6 +1,6 @@
-# XO Arena ❌⭕🤖
+# XO Mayhem ❌⭕🤖
 
-XO Arena is a web-based tic-tac-toe game where players compete against an AI with adjustable difficulty levels. The game expands beyond the classic grid, offering more strategic gameplay while remaining simple and fun.
+XO Mayhem is a web-based tic-tac-toe game where players compete against an AI with adjustable difficulty levels. The game expands beyond the classic grid, offering more strategic gameplay while remaining simple and fun.
 
 ## 🎮 Features
 - Classic **3×3** tic-tac-toe mode
